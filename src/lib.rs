@@ -86,6 +86,25 @@ mod scan_access_control_tests;
 // (issue #331). Self-contained and compiles cleanly under default features.
 pub mod db_pool;
 
+// Coverage-guided fuzzer for Soroban WASM smart contracts.
+// All 9 phases: WASM instrumentation, coverage map, structured input generation,
+// mutation strategies, crash triage, persistent VM, dashboard, CI integration,
+// and differential fuzzing integration.
+// Compiles cleanly under default features — no feature gate required.
+pub mod coverage_guided_fuzzer;
+pub use coverage_guided_fuzzer::{
+    CoverageFuzzer, FuzzerConfig, FuzzerReport,
+    CoverageMap, COVERAGE_MAP_SIZE,
+    Corpus, CorpusEntry, CorpusStats,
+    SorobanInputGen, SorobanValue, SorobanValueType,
+    MutationScheduler, MutationStrategy, MutatorConfig,
+    CrashTriageEngine, CrashReport, CrashGroup,
+    PersistentVm, VmSnapshot,
+    FuzzerDashboard, FuzzerStatus, FuzzerStatusSnapshot,
+    WasmInstrumenter, InstrumentationStats,
+    FuzzCiRunner, FuzzCiConfig, FuzzCiResult,
+};
+
 // === Broken modules gated behind feature flag ===
 // Each module has pre-existing compilation errors (borrow checker violations,
 // missing trait impls, type mismatches, unresolved imports) that are being
